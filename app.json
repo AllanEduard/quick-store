@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Quick Store",
+    "slug": "StoreApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "storeapp",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "icon": "./assets/images/icon.png"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFBF2",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.alistair1203.StoreApp"
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FFFBF2",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 180,
+          "resizeMode": "contain"
+        }
+      ],
+      "expo-sqlite"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "bf687f1f-3f1b-4c13-ab30-6b8d553b584e"
+      }
+    }
+  }
+}
