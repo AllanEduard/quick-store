@@ -1,56 +1,74 @@
-# Welcome to your Expo app 👋
+<p align="center">
+  <img src="./assets/images/icon.png" alt="Quick Store app icon" width="120" />
+</p>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Quick Store
 
-## Get started
+Quick Store is a simple mobile point-of-sale and product-management app for small shops and neighborhood stores. It keeps inventory on the device, makes frequently sold items easy to find, and calculates cash payments and customer change.
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- Create, edit, hide, and delete products.
+- Organize related products into groups and variations.
+- Search the inventory and add products directly to the cart.
+- Change quantities, remove items, or clear the cart.
+- Calculate totals, cash received, remaining balance, and customer change.
+- Persist product data locally with SQLite.
+- Use a responsive interface designed for quick counter transactions.
 
-2. Start the app
+## Built with
 
-   ```bash
-   npx expo start
-   ```
+- [Expo](https://expo.dev/) and React Native
+- TypeScript
+- [Expo Router](https://docs.expo.dev/router/introduction/)
+- [Expo SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/)
+- NativeWind and Tailwind CSS
 
-In the output, you'll find options to open the app in a
+## Getting started
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Requirements
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Node.js
+- npm
+- Expo Go, an Android emulator, or an iOS simulator
 
-## Get a fresh project
-
-When you're ready, run:
+### Installation
 
 ```bash
-npm run reset-project
+git clone https://github.com/AllanEduard/quick-store.git
+cd quick-store
+npm install
+npm start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Follow the Expo terminal instructions to open the app on your preferred device or platform.
 
-### Other setup steps
+## Available commands
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+| Command | Description |
+| --- | --- |
+| `npm start` | Start the Expo development server |
+| `npm run android` | Start Expo and open Android |
+| `npm run ios` | Start Expo and open iOS |
+| `npm run web` | Start the web version |
+| `npm run lint` | Run the Expo ESLint checks |
 
-## Learn more
+## Project structure
 
-To learn more about developing your project with Expo, look at the following resources:
+```text
+src/
+├── app/          Expo Router routes
+├── components/   Cart, product, and home-screen UI
+├── contexts/     Shared cart state
+├── database/     SQLite schema and product operations
+├── hooks/        Cart and inventory logic
+├── screens/      Store and payment screens
+├── types/        TypeScript data models
+└── utils/        Shared formatting helpers
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Product inventory is stored locally on each device. No account or remote database is required for the current version.
 
-## Join the community
+## License
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is available under the [MIT License](./LICENSE).
