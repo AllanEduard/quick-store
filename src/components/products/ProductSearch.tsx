@@ -1,28 +1,19 @@
 import { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 
-import type { Product } from "@/types/product";
+import type { ProductSearchProps } from "@/types/components";
 import { formatPeso } from "@/utils/currency";
+import { searchActiveProducts } from "@/utils/productSearch";
 
-type ProductSearchProps = {
-  products: Product[];
-  getQuantity: (productId: number) => number;
-  onAdd: (productId: number) => void;
-};
-
-export function ProductSearch({ products, getQuantity, onAdd }: ProductSearchProps) {
+export function ProductSearch({
+  products,
+  getQuantity,
+  onAdd,
+}: ProductSearchProps) {
   const [search, setSearch] = useState("");
   const query = search.trim().toLowerCase();
   const results = useMemo(
-    () =>
-      query
-        ? products.filter(
-            (product) =>
-              product.isActive &&
-              (product.name.toLowerCase().includes(query) ||
-                product.groupName?.toLowerCase().includes(query)),
-          )
-        : [],
+    () => searchActiveProducts(products, query),
     [products, query],
   );
 
@@ -75,7 +66,9 @@ export function ProductSearch({ products, getQuantity, onAdd }: ProductSearchPro
                       </Text>
                       {quantity > 0 ? (
                         <View className="rounded-full bg-emerald-600 px-2 py-0.5">
-                          <Text className="text-xs font-bold text-white">{quantity}</Text>
+                          <Text className="text-xs font-bold text-white">
+                            {quantity}
+                          </Text>
                         </View>
                       ) : null}
                     </View>

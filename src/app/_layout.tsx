@@ -2,7 +2,7 @@ import "../global.css";
 import { Stack } from "expo-router";
 import { SQLiteProvider } from "expo-sqlite";
 
-import { initializeDatabase } from "@/database/products";
+import { initializeDatabase } from "@/database/migrations";
 import { CartProvider } from "@/contexts/CartContext";
 
 export default function RootLayout() {

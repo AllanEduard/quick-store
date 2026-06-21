@@ -5,36 +5,19 @@ import {
   createProduct,
   deleteProduct,
   getProducts,
+  renameProductGroup,
   setProductActive,
   updateProduct,
 } from "@/database/products";
-import type {
-  Product,
-  ProductFormDraft,
-  ProductGroup,
-} from "@/types/product";
+import type { Product, ProductFormDraft } from "@/types/product";
+import { buildProductGroups } from "@/utils/productGroups";
 
 export function useProductInventory() {
   const db = useSQLiteContext();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  const groups = useMemo(() => {
-    const byId = new Map<number, ProductGroup>();
-    products.forEach((product) => {
-      if (product.groupId === null || product.groupName === null) return;
-      const group = byId.get(product.groupId);
-      if (group) group.products.push(product);
-      else {
-        byId.set(product.groupId, {
-          id: product.groupId,
-          name: product.groupName,
-          products: [product],
-        });
-      }
-    });
-    return Array.from(byId.values());
-  }, [products]);
+  const groups = useMemo(() => buildProductGroups(products), [products]);
 
   const refresh = useCallback(async () => {
     try {
@@ -77,6 +60,14 @@ export function useProductInventory() {
     [db, refresh],
   );
 
+  const renameGroup = useCallback(
+    async (id: number, name: string) => {
+      await renameProductGroup(db, id, name);
+      await refresh();
+    },
+    [db, refresh],
+  );
+
   const remove = useCallback(
     async (id: number) => {
       await deleteProduct(db, id);
@@ -92,6 +83,7 @@ export function useProductInventory() {
     error,
     add,
     update,
+    renameGroup,
     toggleVisibility,
     remove,
   };

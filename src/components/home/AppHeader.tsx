@@ -1,8 +1,6 @@
 import { Pressable, Text, View } from "react-native";
 
-type AppHeaderProps = {
-  onManage: () => void;
-};
+import type { AppHeaderProps } from "@/types/components";
 
 export function AppHeader({ onManage }: AppHeaderProps) {
   return (

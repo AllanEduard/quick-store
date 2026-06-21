@@ -1,14 +1,8 @@
 import { Pressable, Text, View } from "react-native";
 
 import { productCardColors } from "@/constants/productStyles";
-import type { Product } from "@/types/product";
+import type { ProductCardProps } from "@/types/components";
 import { formatPeso } from "@/utils/currency";
-
-type ProductCardProps = {
-  product: Product;
-  quantity: number;
-  onPress: () => void;
-};
 
 export function ProductCard({ product, quantity, onPress }: ProductCardProps) {
   return (
@@ -34,7 +28,10 @@ export function ProductCard({ product, quantity, onPress }: ProductCardProps) {
           </View>
         ) : null}
       </View>
-      <Text numberOfLines={2} className="min-h-10 text-base font-bold text-stone-900">
+      <Text
+        numberOfLines={2}
+        className="min-h-10 text-base font-bold text-stone-900"
+      >
         {product.name}
       </Text>
       <View className="mt-3 flex-row items-center justify-between">

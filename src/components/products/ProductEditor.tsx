@@ -11,17 +11,9 @@ import {
 } from "react-native";
 
 import { DuplicateGroupError, DuplicateProductError } from "@/errors/inventory";
-import type { Product, ProductFormDraft, ProductGroup } from "@/types/product";
+import type { ProductEditorProps } from "@/types/components";
+import { validateProductForm } from "@/utils/productForm";
 import { GroupPickerModal } from "./GroupPickerModal";
-
-type ProductEditorProps = {
-  product: Product | "new";
-  groups: ProductGroup[];
-  initialGroupId?: number | null;
-  title?: string;
-  onBack: () => void;
-  onSave: (draft: ProductFormDraft) => Promise<void>;
-};
 
 export function ProductEditor({
   product,
@@ -45,31 +37,12 @@ export function ProductEditor({
   const selectedGroup = groups.find((group) => group.id === groupId);
 
   const handleSave = async () => {
-    const cleanName = name.trim();
-    const cleanPrice = price.trim().replace(",", ".");
-    const parsedPrice = Number(cleanPrice);
-
-    if (!cleanName) {
-      setError("Enter a product name.");
-      return;
-    }
-    if (!cleanPrice) {
-      setError("Enter a product price.");
-      return;
-    }
-    if (!Number.isFinite(parsedPrice) || parsedPrice < 0) {
-      setError("Enter a valid price of 0 or more.");
-      return;
-    }
+    const result = validateProductForm({ name, price, groupId, newGroupName });
+    if (!result.ok) return setError(result.error);
 
     setIsSaving(true);
     try {
-      await onSave({
-        name: cleanName,
-        price: parsedPrice,
-        groupId,
-        newGroupName,
-      });
+      await onSave(result.draft);
     } catch (saveError) {
       setError(
         saveError instanceof DuplicateProductError
@@ -102,7 +75,9 @@ export function ProductEditor({
         </Text>
       </View>
       <ScrollView keyboardShouldPersistTaps="handled" className="px-5 pt-7">
-        <Text className="mb-2 text-sm font-bold text-stone-700">Product name *</Text>
+        <Text className="mb-2 text-sm font-bold text-stone-700">
+          Product name *
+        </Text>
         <TextInput
           autoFocus
           value={name}
@@ -111,7 +86,9 @@ export function ProductEditor({
           placeholderTextColor="#A8A29E"
           className="h-14 rounded-2xl border border-stone-300 bg-white px-4 text-base text-stone-900"
         />
-        <Text className="mb-2 mt-5 text-sm font-bold text-stone-700">Price *</Text>
+        <Text className="mb-2 mt-5 text-sm font-bold text-stone-700">
+          Price *
+        </Text>
         <View className="flex-row items-center rounded-2xl border border-stone-300 bg-white px-4">
           <Text className="mr-2 text-lg font-bold text-stone-500">₱</Text>
           <TextInput
@@ -145,7 +122,9 @@ export function ProductEditor({
           </Text>
         </Pressable>
         {error ? (
-          <Text className="mt-3 text-sm font-semibold text-red-600">{error}</Text>
+          <Text className="mt-3 text-sm font-semibold text-red-600">
+            {error}
+          </Text>
         ) : null}
         <Pressable
           disabled={isSaving}
@@ -155,7 +134,9 @@ export function ProductEditor({
           {isSaving ? (
             <ActivityIndicator color="white" />
           ) : (
-            <Text className="text-base font-black text-white">Save product</Text>
+            <Text className="text-base font-black text-white">
+              Save product
+            </Text>
           )}
         </Pressable>
       </ScrollView>

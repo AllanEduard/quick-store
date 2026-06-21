@@ -13,21 +13,18 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useCartContext } from "@/contexts/CartContext";
-import { formatPeso } from "@/utils/currency";
+import { formatPeso, parseNonNegativeAmount } from "@/utils/currency";
 
 export default function PaymentScreen() {
   const router = useRouter();
   const { clear } = useCartContext();
   const params = useLocalSearchParams<{ total?: string | string[] }>();
-  const totalParam = Array.isArray(params.total) ? params.total[0] : params.total;
-  const total = Math.max(0, Number(totalParam) || 0);
+  const totalParam = Array.isArray(params.total)
+    ? params.total[0]
+    : params.total;
+  const total = parseNonNegativeAmount(totalParam ?? "") ?? 0;
   const [cash, setCash] = useState("");
-  const cashAmount = useMemo(() => {
-    const value = cash.trim().replace(",", ".");
-    if (!value) return null;
-    const amount = Number(value);
-    return Number.isFinite(amount) && amount >= 0 ? amount : null;
-  }, [cash]);
+  const cashAmount = useMemo(() => parseNonNegativeAmount(cash), [cash]);
   const difference = cashAmount === null ? null : cashAmount - total;
 
   return (
@@ -44,7 +41,10 @@ export default function PaymentScreen() {
           <Text className="text-xl font-black text-stone-900">Payment</Text>
         </View>
 
-        <ScrollView keyboardShouldPersistTaps="handled" contentContainerClassName="px-5 py-7">
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerClassName="px-5 py-7"
+        >
           <View className="items-center rounded-3xl bg-emerald-700 px-5 py-7">
             <Text className="text-sm font-bold uppercase tracking-widest text-emerald-100">
               Amount due

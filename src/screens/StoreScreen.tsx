@@ -66,6 +66,7 @@ export default function StoreScreen() {
         onClose={() => setIsManagerOpen(false)}
         onCreate={inventory.add}
         onUpdate={inventory.update}
+        onRenameGroup={inventory.renameGroup}
         onToggleVisibility={inventory.toggleVisibility}
         onDelete={inventory.remove}
         onProductDeleted={cart.remove}

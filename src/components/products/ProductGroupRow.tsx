@@ -1,14 +1,11 @@
 import { Pressable, Text, View } from "react-native";
 
-import type { ProductGroup } from "@/types/product";
-
-type ProductGroupRowProps = {
-  group: ProductGroup;
-  onPress: () => void;
-};
+import type { ProductGroupRowProps } from "@/types/components";
 
 export function ProductGroupRow({ group, onPress }: ProductGroupRowProps) {
-  const shownCount = group.products.filter((product) => product.isActive).length;
+  const shownCount = group.products.filter(
+    (product) => product.isActive,
+  ).length;
   return (
     <Pressable
       accessibilityRole="button"
@@ -26,7 +23,8 @@ export function ProductGroupRow({ group, onPress }: ProductGroupRowProps) {
           {group.name}
         </Text>
         <Text className="mt-1 text-sm text-stone-500">
-          {group.products.length} {group.products.length === 1 ? "product" : "variations"}
+          {group.products.length}{" "}
+          {group.products.length === 1 ? "product" : "variations"}
           {` · ${shownCount} shown`}
         </Text>
       </View>

@@ -1,13 +1,8 @@
 import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import type { CartSummaryProps } from "@/types/components";
 import { formatPeso } from "@/utils/currency";
-
-type CartSummaryProps = {
-  itemCount: number;
-  total: number;
-  onPress: () => void;
-};
 
 export function CartSummary({ itemCount, total, onPress }: CartSummaryProps) {
   const isEmpty = itemCount === 0;
@@ -40,7 +35,9 @@ export function CartSummary({ itemCount, total, onPress }: CartSummaryProps) {
           <Text className="text-3xl font-black tracking-tight text-emerald-700">
             {formatPeso(total)}
           </Text>
-          {!isEmpty ? <Text className="ml-2 text-2xl text-stone-400">›</Text> : null}
+          {!isEmpty ? (
+            <Text className="ml-2 text-2xl text-stone-400">›</Text>
+          ) : null}
         </View>
       </Pressable>
     </SafeAreaView>

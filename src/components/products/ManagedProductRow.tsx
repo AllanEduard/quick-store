@@ -1,14 +1,7 @@
 import { Pressable, Text, View } from "react-native";
 
-import type { Product } from "@/types/product";
+import type { ManagedProductRowProps } from "@/types/components";
 import { formatPeso } from "@/utils/currency";
-
-type ManagedProductRowProps = {
-  product: Product;
-  showGroup?: boolean;
-  onEdit: () => void;
-  onActions: () => void;
-};
 
 export function ManagedProductRow({
   product,
@@ -43,7 +36,9 @@ export function ManagedProductRow({
         onPress={onActions}
         className="h-11 w-11 items-center justify-center rounded-xl active:bg-stone-100"
       >
-        <Text className="text-lg font-black tracking-widest text-stone-500">•••</Text>
+        <Text className="text-lg font-black tracking-widest text-stone-500">
+          •••
+        </Text>
       </Pressable>
     </View>
   );

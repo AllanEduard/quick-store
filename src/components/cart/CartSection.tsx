@@ -1,15 +1,8 @@
 import { Pressable, Text, View } from "react-native";
 
-import type { CartItem } from "@/types/cart";
+import type { CartSectionProps } from "@/types/components";
 import { formatPeso } from "@/utils/currency";
 import { QuantityButton } from "./QuantityButton";
-
-type CartSectionProps = {
-  items: CartItem[];
-  onChangeQuantity: (productId: number, change: number) => void;
-  onRemove: (productId: number) => void;
-  onClear: () => void;
-};
 
 export function CartSection({
   items,
@@ -53,7 +46,9 @@ export function CartSection({
                     onPress={() => onRemove(item.product.id)}
                     className="mt-1 py-1"
                   >
-                    <Text className="text-xs font-semibold text-red-600">Remove</Text>
+                    <Text className="text-xs font-semibold text-red-600">
+                      Remove
+                    </Text>
                   </Pressable>
                 </View>
               </View>

@@ -1,15 +1,7 @@
 import { ActivityIndicator, Text, View } from "react-native";
 
-import type { Product } from "@/types/product";
+import type { ProductCatalogProps } from "@/types/components";
 import { ProductCard } from "./ProductCard";
-
-type ProductCatalogProps = {
-  products: Product[];
-  isLoading: boolean;
-  error: string;
-  getQuantity: (productId: number) => number;
-  onAdd: (productId: number) => void;
-};
 
 export function ProductCatalog({
   products,
@@ -25,7 +17,9 @@ export function ProductCatalog({
       <View className="mb-3 flex-row items-end justify-between">
         <View>
           <Text className="text-2xl font-black text-stone-900">Products</Text>
-          <Text className="mt-1 text-sm text-stone-500">Tap an item to add it</Text>
+          <Text className="mt-1 text-sm text-stone-500">
+            Tap an item to add it
+          </Text>
         </View>
         <Text className="text-sm font-semibold text-stone-500">
           {availableProducts.length} available
